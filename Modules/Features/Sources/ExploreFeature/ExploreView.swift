@@ -13,16 +13,22 @@ struct ExploreView: View {
 
     var body: some View {
         ScrollView {
+            categoryChips
+                .padding(.vertical, Spacing.sm)
+
             cards
                 .padding(.horizontal, Spacing.screenEdge)
-                .padding(.top, Spacing.md)
                 .padding(.bottom, Spacing.xxxl)
         }
         .background(WanderlyColor.bg)
-        .safeAreaInset(edge: .top, spacing: 0) {
-            topBar
+        .navigationTitle("Explore")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                ThemeToggleButton(theme: theme)
+            }
         }
-        .toolbar(.hidden, for: .navigationBar)
+        .searchable(text: $viewModel.searchText, prompt: "Search places")
         .sheet(item: $selectedPlace) { place in
             PlaceDetailSheet(
                 place: place,
@@ -34,54 +40,6 @@ struct ExploreView: View {
         }
         .task { await viewModel.load() }
         .task { await viewModel.observePlan() }
-    }
-
-    private var topBar: some View {
-        VStack(spacing: Spacing.md) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text("JAIPUR · 1 DAY")
-                        .font(WanderlyFont.caption)
-                        .tracking(0.5)
-                        .foregroundStyle(WanderlyColor.rose)
-                    Text("Explore")
-                        .font(WanderlyFont.largeTitle)
-                        .foregroundStyle(WanderlyColor.ink)
-                }
-                Spacer()
-                ThemeToggleButton(theme: theme)
-            }
-            .padding(.horizontal, Spacing.screenEdge)
-
-            searchField
-                .padding(.horizontal, Spacing.screenEdge)
-
-            categoryChips
-        }
-        .padding(.top, Spacing.sm)
-        .padding(.bottom, Spacing.md)
-        .background(WanderlyColor.bg.ignoresSafeArea(edges: .top))
-    }
-
-    private var searchField: some View {
-        HStack(spacing: Spacing.sm) {
-            Image(systemName: "magnifyingglass")
-                .foregroundStyle(WanderlyColor.ink3)
-            TextField("Search places", text: $viewModel.searchText)
-                .font(WanderlyFont.body)
-                .autocorrectionDisabled()
-            if !viewModel.searchText.isEmpty {
-                Button {
-                    viewModel.searchText = ""
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundStyle(WanderlyColor.ink3)
-                }
-            }
-        }
-        .padding(.horizontal, Spacing.md)
-        .frame(height: 42)
-        .background(WanderlyColor.surface, in: Capsule())
     }
 
     private var categoryChips: some View {
