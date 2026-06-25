@@ -25,9 +25,9 @@ public struct EmptyStateView: View {
     public var body: some View {
         VStack(spacing: Spacing.lg) {
             Image(systemName: icon)
-                .font(.system(size: 62))
+                .font(.system(size: 56))
                 .foregroundStyle(WanderlyColor.rose)
-                .frame(width: 124, height: 124)
+                .frame(width: 120, height: 120)
                 .background(Circle().fill(WanderlyColor.roseSoft))
 
             VStack(spacing: Spacing.sm) {
@@ -35,17 +35,19 @@ public struct EmptyStateView: View {
                     .font(.system(size: 22, weight: .bold))
                     .foregroundStyle(WanderlyColor.ink)
                 Text(message)
-                    .font(.system(size: 15))
+                    .font(WanderlyFont.subhead)
                     .foregroundStyle(WanderlyColor.ink2)
                     .multilineTextAlignment(.center)
             }
 
             if let actionTitle, let action {
                 PrimaryButton(actionTitle, action: action)
-                    .fixedSize()
+                    .padding(.top, Spacing.sm)
             }
         }
-        .padding(Spacing.xxl)
+        .padding(.horizontal, Spacing.xl)
+        .frame(maxWidth: 360)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
