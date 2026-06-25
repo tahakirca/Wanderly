@@ -36,11 +36,11 @@ struct PlanView: View {
     private var plan: some View {
         List {
             Section {
-                ForEach(viewModel.stops) { stop in
-                    StopRow(stop: stop)
+                ForEach(Array(viewModel.stops.enumerated()), id: \.element.id) { index, stop in
+                    StopRow(stop: stop, isFirst: index == 0, isLast: index == viewModel.stops.count - 1)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
+                        .listRowInsets(EdgeInsets(top: 0, leading: Spacing.screenEdge, bottom: 0, trailing: Spacing.screenEdge))
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
                                 viewModel.remove(stop)
