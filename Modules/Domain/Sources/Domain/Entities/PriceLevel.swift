@@ -5,10 +5,10 @@ public enum PriceLevel: Sendable {
     case high
 
     public init(symbol: String) {
-        switch symbol {
-        case "$": self = .low
-        case "$$": self = .medium
-        case "$$$": self = .high
+        switch symbol.filter({ $0 == "$" }).count {
+        case 1: self = .low
+        case 2: self = .medium
+        case 3...: self = .high
         default: self = .free
         }
     }

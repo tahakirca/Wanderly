@@ -32,6 +32,17 @@ struct PlaceDTOTests {
         #expect(place.tags == ["historic", "architecture"])
     }
 
+    @Test func extraDollarSignsMapToHighestTier() throws {
+        let dto = try JSONDecoder().decode(PlaceDTO.self, from: Data(json(price: "$$$$").utf8))
+        // A "$$$$" row must not silently fall back to Free.
+        #expect(dto.toDomain()?.priceLevel == .high)
+    }
+
+    @Test func emptyImageURLReturnsNil() throws {
+        let dto = try JSONDecoder().decode(PlaceDTO.self, from: Data(json(imageURL: "").utf8))
+        #expect(dto.toDomain() == nil)
+    }
+
     @Test func unknownCategoryReturnsNil() throws {
         let json = """
         {
@@ -43,5 +54,16 @@ struct PlaceDTOTests {
         """
         let dto = try JSONDecoder().decode(PlaceDTO.self, from: Data(json.utf8))
         #expect(dto.toDomain() == nil)
+    }
+
+    private func json(price: String = "$$", imageURL: String = "https://example.com/x.jpg") -> String {
+        """
+        {
+            "id": "x", "name": "Place", "category": "landmark", "rating": 4.0,
+            "image_url": "\(imageURL)", "estimated_duration_min": 30,
+            "distance_km": 2.0, "description": "", "opening_hours": "",
+            "price_level": "\(price)", "tags": []
+        }
+        """
     }
 }
