@@ -11,6 +11,7 @@ final class ExploreViewModel: ObservableObject {
 
     private let fetchPlaces: FetchPlacesUseCase
     private let planStore: PlanStore
+    private var hasLoaded = false
 
     init(fetchPlaces: FetchPlacesUseCase, planStore: PlanStore) {
         self.fetchPlaces = fetchPlaces
@@ -32,11 +33,15 @@ final class ExploreViewModel: ObservableObject {
     }
 
     func load() async {
+        guard !hasLoaded else { return }
         isLoading = true
         // The data is local, so hold the skeleton briefly to keep that state visible.
         try? await Task.sleep(for: .seconds(0.6))
-        places = (try? await fetchPlaces.execute()) ?? []
+        let loaded = (try? await fetchPlaces.execute()) ?? []
+        guard !Task.isCancelled else { return }
+        places = loaded
         isLoading = false
+        hasLoaded = true
     }
 
     func observePlan() async {

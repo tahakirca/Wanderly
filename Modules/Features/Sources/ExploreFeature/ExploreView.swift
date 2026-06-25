@@ -13,19 +13,15 @@ struct ExploreView: View {
 
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
-                header
-                Section {
-                    cards
-                        .padding(.horizontal, Spacing.screenEdge)
-                        .padding(.top, Spacing.lg)
-                        .padding(.bottom, Spacing.xxxl)
-                } header: {
-                    filters
-                }
-            }
+            cards
+                .padding(.horizontal, Spacing.screenEdge)
+                .padding(.top, Spacing.md)
+                .padding(.bottom, Spacing.xxxl)
         }
         .background(WanderlyColor.bg)
+        .safeAreaInset(edge: .top, spacing: 0) {
+            topBar
+        }
         .toolbar(.hidden, for: .navigationBar)
         .sheet(item: $selectedPlace) { place in
             PlaceDetailSheet(
@@ -40,43 +36,31 @@ struct ExploreView: View {
         .task { await viewModel.observePlan() }
     }
 
-    private var header: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text("JAIPUR · 1 DAY")
-                    .font(WanderlyFont.caption)
-                    .tracking(0.5)
-                    .foregroundStyle(WanderlyColor.rose)
-                Text("Explore")
-                    .font(WanderlyFont.largeTitle)
-                    .foregroundStyle(WanderlyColor.ink)
-            }
-            Spacer()
-            ThemeToggleButton(theme: theme)
-        }
-        .padding(.horizontal, Spacing.screenEdge)
-        .padding(.top, Spacing.sm)
-    }
-
-    private var filters: some View {
+    private var topBar: some View {
         VStack(spacing: Spacing.md) {
-            searchField
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: Spacing.sm) {
-                    CategoryChip(title: "All", symbol: "square.grid.2x2", isSelected: viewModel.selectedCategory == nil) {
-                        viewModel.selectedCategory = nil
-                    }
-                    ForEach(PlaceCategory.allCases, id: \.self) { category in
-                        CategoryChip(category: category, isSelected: viewModel.selectedCategory == category) {
-                            viewModel.selectedCategory = category
-                        }
-                    }
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("JAIPUR · 1 DAY")
+                        .font(WanderlyFont.caption)
+                        .tracking(0.5)
+                        .foregroundStyle(WanderlyColor.rose)
+                    Text("Explore")
+                        .font(WanderlyFont.largeTitle)
+                        .foregroundStyle(WanderlyColor.ink)
                 }
-                .padding(.horizontal, Spacing.screenEdge)
+                Spacer()
+                ThemeToggleButton(theme: theme)
             }
+            .padding(.horizontal, Spacing.screenEdge)
+
+            searchField
+                .padding(.horizontal, Spacing.screenEdge)
+
+            categoryChips
         }
-        .padding(.vertical, Spacing.md)
-        .background(WanderlyColor.bg)
+        .padding(.top, Spacing.sm)
+        .padding(.bottom, Spacing.md)
+        .background(WanderlyColor.bg.ignoresSafeArea(edges: .top))
     }
 
     private var searchField: some View {
@@ -98,7 +82,22 @@ struct ExploreView: View {
         .padding(.horizontal, Spacing.md)
         .frame(height: 42)
         .background(WanderlyColor.surface, in: Capsule())
-        .padding(.horizontal, Spacing.screenEdge)
+    }
+
+    private var categoryChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Spacing.sm) {
+                CategoryChip(title: "All", symbol: "square.grid.2x2", isSelected: viewModel.selectedCategory == nil) {
+                    viewModel.selectedCategory = nil
+                }
+                ForEach(PlaceCategory.allCases, id: \.self) { category in
+                    CategoryChip(category: category, isSelected: viewModel.selectedCategory == category) {
+                        viewModel.selectedCategory = category
+                    }
+                }
+            }
+            .padding(.horizontal, Spacing.screenEdge)
+        }
     }
 
     @ViewBuilder
