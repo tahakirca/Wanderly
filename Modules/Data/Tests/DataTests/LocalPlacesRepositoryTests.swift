@@ -9,15 +9,10 @@ struct LocalPlacesRepositoryTests {
         #expect(places.count == 35)
     }
 
-    @Test func categoryCountsMatchTheFile() async throws {
+    @Test func decodedPlacesAreWellFormed() async throws {
         let places = try await LocalPlacesRepository().loadPlaces()
-        func count(_ category: PlaceCategory) -> Int {
-            places.filter { $0.category == category }.count
-        }
-        #expect(count(.landmark) == 15)
-        #expect(count(.restaurant) == 6)
-        #expect(count(.cafe) == 5)
-        #expect(count(.activity) == 7)
-        #expect(count(.shopping) == 2)
+        #expect(places.allSatisfy { !$0.name.isEmpty })
+        #expect(places.allSatisfy { (0...5).contains($0.rating) })
+        #expect(Set(places.map(\.id)).count == places.count)
     }
 }

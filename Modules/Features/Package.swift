@@ -26,7 +26,7 @@ let package = Package(
         ),
         .testTarget(
             name: "ExploreFeatureTests",
-            dependencies: ["ExploreFeature"],
+            dependencies: ["ExploreFeature", "Domain"],
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
         ),
     ]
