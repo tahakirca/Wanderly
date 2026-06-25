@@ -33,38 +33,38 @@ struct PlanView: View {
     }
 
     private var plan: some View {
-        VStack(spacing: 0) {
+        List {
             PlanSummaryCard(summary: viewModel.summary)
-                .padding(.horizontal, Spacing.screenEdge)
-                .padding(.top, Spacing.sm)
+                .listRowInsets(EdgeInsets(top: Spacing.sm, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
 
             if viewModel.summary.exceedsDayLimit {
                 WarningBanner(message: "That's over 10 hours of plans — consider trimming a stop.")
-                    .padding(.horizontal, Spacing.screenEdge)
-                    .padding(.top, Spacing.md)
+                    .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
             }
 
-            List {
-                ForEach(viewModel.stops) { stop in
-                    StopRow(stop: stop)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
-                        .swipeActions(edge: .trailing) {
-                            Button(role: .destructive) {
-                                viewModel.remove(stop)
-                            } label: {
-                                Label("Remove", systemImage: "trash")
-                            }
+            ForEach(viewModel.stops) { stop in
+                StopRow(stop: stop)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            viewModel.remove(stop)
+                        } label: {
+                            Label("Remove", systemImage: "trash")
                         }
-                }
-                .onMove { source, destination in
-                    viewModel.move(from: source, to: destination)
-                }
+                    }
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
+            .onMove { source, destination in
+                viewModel.move(from: source, to: destination)
+            }
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
         .safeAreaInset(edge: .bottom) {
             reviewButton
         }
