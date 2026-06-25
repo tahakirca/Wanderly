@@ -58,5 +58,6 @@ fastlane/xcov_output
 .bundle/
 vendor/
 
-### local spm clone
+### local build output
 .build-spm/
+.build-dd/
