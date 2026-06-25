@@ -1,6 +1,5 @@
 import SwiftUI
 
-/// Teal-tinted opening-hours callout for the detail sheet.
 public struct HoursCallout: View {
     private let hours: String
 

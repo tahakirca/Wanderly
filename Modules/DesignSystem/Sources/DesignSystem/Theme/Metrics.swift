@@ -21,7 +21,6 @@ public enum Radius {
     public static let button: CGFloat = 16
     public static let tile: CGFloat = 14
     public static let node: CGFloat = 15
-    /// Use a Capsule shape for pills.
 }
 
 /// Shadow tokens. Apply with `.shadow(token)`.
@@ -42,6 +41,7 @@ public struct Shadow: Sendable {
     public static let lifted = Shadow(color: Color.black.opacity(0.30), radius: 20, offsetY: 18)
     public static let sheet = Shadow(color: Color.black.opacity(0.24), radius: 22, offsetY: -12)
     public static let primaryButton = Shadow(color: WanderlyColor.teal.opacity(0.30), radius: 9, offsetY: 6)
+    public static let addButtonActive = Shadow(color: WanderlyColor.teal.opacity(0.42), radius: 7, offsetY: 5)
     public static let roseHero = Shadow(color: WanderlyColor.rose.opacity(0.34), radius: 14, offsetY: 12)
     public static let snackbar = Shadow(color: Color.black.opacity(0.32), radius: 17, offsetY: 14)
 }

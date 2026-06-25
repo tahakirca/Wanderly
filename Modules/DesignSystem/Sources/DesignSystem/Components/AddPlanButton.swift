@@ -21,8 +21,7 @@ public struct AddPlanButton: View {
                 .frame(width: 44, height: 44)
                 .background(Circle().fill(isAdded ? WanderlyColor.teal : WanderlyColor.bgElevated))
                 .overlay(Circle().strokeBorder(WanderlyColor.bgElevated, lineWidth: 3))
-                .shadow(isAdded ? .init(color: WanderlyColor.teal.opacity(0.42), radius: 7, offsetY: 5) : .card)
-                // Small pop when the added state flips on.
+                .shadow(isAdded ? .addButtonActive : .card)
                 .animation(.spring(response: 0.3, dampingFraction: 0.55), value: isAdded)
         }
         .buttonStyle(PopButtonStyle())

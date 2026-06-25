@@ -1,6 +1,5 @@
 import SwiftUI
 
-/// Saffron star + one-decimal rating. Frosted dark style for use over images.
 public struct RatingPill: View {
     private let rating: Double
     private let overImage: Bool

@@ -1,6 +1,5 @@
 import SwiftUI
 
-/// Amber banner shown when the planned day runs long (>10h).
 public struct WarningBanner: View {
     private let message: String
 

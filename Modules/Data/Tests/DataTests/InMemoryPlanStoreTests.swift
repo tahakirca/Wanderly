@@ -67,4 +67,30 @@ struct InMemoryPlanStoreTests {
         store.insert(place("b"), at: 99)
         #expect(store.plan.places.map(\.id) == ["a", "b"])
     }
+
+    @Test func updatesEmitsCurrentPlanThenEveryChange() async {
+        let store = InMemoryPlanStore()
+        var stream = store.updates.makeAsyncIterator()
+
+        let current = await stream.next()
+        #expect(current?.places.isEmpty == true)
+
+        store.add(place("a"))
+        let afterAdd = await stream.next()
+        #expect(afterAdd?.places.map(\.id) == ["a"])
+    }
+
+    @Test func updatesReachAllSubscribers() async {
+        let store = InMemoryPlanStore()
+        var first = store.updates.makeAsyncIterator()
+        var second = store.updates.makeAsyncIterator()
+        _ = await first.next()
+        _ = await second.next()
+
+        store.add(place("x"))
+        let firstValue = await first.next()
+        let secondValue = await second.next()
+        #expect(firstValue?.places.map(\.id) == ["x"])
+        #expect(secondValue?.places.map(\.id) == ["x"])
+    }
 }

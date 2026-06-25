@@ -56,6 +56,15 @@ struct TripSummaryCalculatorTests {
         #expect(TripSummaryCalculator.summary(for: reasonable).exceedsDayLimit == false)
     }
 
+    @Test("Ten hours exactly is fine, one minute over is flagged")
+    func dayLimitBoundary() {
+        let exactlyTenHours = TripPlan(places: [place(duration: 600)])
+        #expect(TripSummaryCalculator.summary(for: exactlyTenHours).exceedsDayLimit == false)
+
+        let justOver = TripPlan(places: [place(duration: 601)])
+        #expect(TripSummaryCalculator.summary(for: justOver).exceedsDayLimit)
+    }
+
     @Test("Cost and category breakdown are totalled from the plan")
     func costAndBreakdown() {
         let plan = TripPlan(places: [

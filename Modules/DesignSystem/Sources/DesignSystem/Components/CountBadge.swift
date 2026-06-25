@@ -1,6 +1,5 @@
 import SwiftUI
 
-/// Small saffron count bubble for the My Plan tab icon.
 public struct CountBadge: View {
     private let count: Int
 

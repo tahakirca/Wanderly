@@ -1,7 +1,6 @@
 import SwiftUI
 import Domain
 
-/// Shows the price symbol ($/$$/$$$/Free) in a bold, tracked style.
 public struct PriceLevelLabel: View {
     private let level: PriceLevel
 

@@ -10,6 +10,9 @@ public struct PlaceCard: View {
     private let onTogglePlan: () -> Void
 
     private let imageHeight: CGFloat = 172
+    private let addButtonInset: CGFloat = 14
+    // The add button sits half over the image's bottom edge (it's 44pt tall).
+    private let addButtonOverhang: CGFloat = 22
 
     public init(
         place: Place,
@@ -50,8 +53,8 @@ public struct PlaceCard: View {
             }
             .overlay(alignment: .bottomTrailing) {
                 AddPlanButton(isAdded: isAdded, action: onTogglePlan)
-                    .padding(.trailing, 14)
-                    .offset(y: 22)
+                    .padding(.trailing, addButtonInset)
+                    .offset(y: addButtonOverhang)
             }
     }
 
