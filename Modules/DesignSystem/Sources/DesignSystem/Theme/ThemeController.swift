@@ -22,7 +22,6 @@ public final class ThemeController: ObservableObject {
         }
     }
 
-    /// Cycles light → dark, treating an unset system mode as light.
     public func toggle() {
         mode = (mode == .dark) ? .light : .dark
     }

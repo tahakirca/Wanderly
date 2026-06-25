@@ -9,7 +9,6 @@ public struct PlaceCard: View {
     private let onTap: () -> Void
     private let onTogglePlan: () -> Void
 
-    private let imageHeight: CGFloat = 172
     private let addButtonInset: CGFloat = 14
     // The add button sits half over the image's bottom edge (it's 44pt tall).
     private let addButtonOverhang: CGFloat = 22
@@ -40,7 +39,7 @@ public struct PlaceCard: View {
 
     private var cover: some View {
         PlaceImage(url: place.imageURL)
-            .frame(height: imageHeight)
+            .frame(height: CardMetrics.imageHeight)
             .frame(maxWidth: .infinity)
             .clipped()
             .overlay(alignment: .topLeading) {

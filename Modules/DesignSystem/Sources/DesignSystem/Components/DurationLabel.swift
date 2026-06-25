@@ -18,7 +18,6 @@ public struct DurationLabel: View {
         .foregroundStyle(WanderlyColor.ink2)
     }
 
-    /// "45 min", "3 hr", "1 hr 30 min".
     public static func humanized(_ minutes: Int) -> String {
         let hours = minutes / 60
         let mins = minutes % 60

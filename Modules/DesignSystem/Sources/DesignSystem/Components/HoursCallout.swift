@@ -22,8 +22,3 @@ public struct HoursCallout: View {
         .background(WanderlyColor.tealSoft, in: RoundedRectangle(cornerRadius: Radius.tile))
     }
 }
-
-#Preview {
-    HoursCallout(hours: "9:00 AM - 5:30 PM")
-        .padding()
-}

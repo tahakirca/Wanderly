@@ -46,7 +46,7 @@ public struct CategoryChip: View {
                     .foregroundStyle(isSelected ? .white : WanderlyColor.ink2)
             }
             .padding(.horizontal, Spacing.md)
-            .frame(height: 37)
+            .frame(height: 36)
             .background(isSelected ? WanderlyColor.rose : WanderlyColor.surface, in: Capsule())
         }
         .buttonStyle(.plain)

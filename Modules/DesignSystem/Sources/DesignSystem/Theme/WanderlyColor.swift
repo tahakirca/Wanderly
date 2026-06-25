@@ -27,7 +27,6 @@ public enum WanderlyColor {
         dark: UIColor(white: 0, alpha: 0.58)
     )
 
-    /// Category accent, used for the small icons in badges and chips.
     public static func accent(for category: PlaceCategory) -> Color {
         switch category {
         case .landmark: dynamic(light: "#BE5A63", dark: "#E08A91")
@@ -38,7 +37,6 @@ public enum WanderlyColor {
         }
     }
 
-    /// SF Symbol for each place category.
     public static func symbol(for category: PlaceCategory) -> String {
         switch category {
         case .landmark: "building.columns"

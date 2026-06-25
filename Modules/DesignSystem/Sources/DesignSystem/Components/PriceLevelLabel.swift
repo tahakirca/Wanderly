@@ -15,13 +15,3 @@ public struct PriceLevelLabel: View {
             .foregroundStyle(WanderlyColor.ink2)
     }
 }
-
-#Preview {
-    HStack(spacing: Spacing.lg) {
-        PriceLevelLabel(.free)
-        PriceLevelLabel(.low)
-        PriceLevelLabel(.medium)
-        PriceLevelLabel(.high)
-    }
-    .padding()
-}

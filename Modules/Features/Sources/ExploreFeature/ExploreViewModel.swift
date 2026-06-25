@@ -24,10 +24,6 @@ final class ExploreViewModel: ObservableObject {
         }
     }
 
-    var planCount: Int {
-        planIDs.count
-    }
-
     func isInPlan(_ place: Place) -> Bool {
         planIDs.contains(place.id)
     }

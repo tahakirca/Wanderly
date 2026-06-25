@@ -1,7 +1,6 @@
 import Foundation
 
 enum ClockTime {
-    // Turns minutes-from-midnight into a readable time like "9:00 AM".
     static func string(fromMinutes minutes: Int) -> String {
         let hour24 = (minutes / 60) % 24
         let minute = minutes % 60

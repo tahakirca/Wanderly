@@ -13,7 +13,6 @@ public enum WanderlyFont {
 }
 
 extension View {
-    /// Uppercase caption with the small tracking used for eyebrows and badges.
     func captionStyle() -> some View {
         font(WanderlyFont.caption)
             .textCase(.uppercase)

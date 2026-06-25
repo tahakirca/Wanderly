@@ -39,7 +39,7 @@ public struct SkeletonCard: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             ShimmerBar(cornerRadius: 0)
-                .frame(height: 172)
+                .frame(height: CardMetrics.imageHeight)
             VStack(alignment: .leading, spacing: Spacing.sm) {
                 ShimmerBar().frame(width: 180, height: 16)
                 ShimmerBar().frame(height: 12)

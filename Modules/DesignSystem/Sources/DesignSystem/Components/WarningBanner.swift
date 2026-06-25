@@ -21,8 +21,3 @@ public struct WarningBanner: View {
         .background(WanderlyColor.warnBg, in: RoundedRectangle(cornerRadius: Radius.tile))
     }
 }
-
-#Preview {
-    WarningBanner(message: "That's a packed day — over 10 hours of plans.")
-        .padding()
-}
