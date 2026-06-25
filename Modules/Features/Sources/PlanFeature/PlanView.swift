@@ -21,6 +21,7 @@ struct PlanView: View {
         }
         .background(WanderlyColor.bg)
         .navigationTitle("My Plan")
+        .toolbarBackground(.visible, for: .navigationBar)
         .navigationDestination(for: PlanRoute.self) { _ in
             TripSummaryView(summary: viewModel.summary)
         }
