@@ -25,6 +25,7 @@ struct RootTabView: View {
             NavigationStack {
                 container.makeExplore()
             }
+            .toolbarBackground(.visible, for: .tabBar)
             .tabItem {
                 Label("Explore", systemImage: "map")
             }
@@ -33,6 +34,7 @@ struct RootTabView: View {
             NavigationStack {
                 container.makePlan(onBrowse: { selection = .explore })
             }
+            .toolbarBackground(.visible, for: .tabBar)
             .tabItem {
                 Label("My Plan", systemImage: "list.bullet")
             }
