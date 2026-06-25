@@ -34,33 +34,27 @@ struct PlanView: View {
 
     private var plan: some View {
         List {
-            PlanSummaryCard(summary: viewModel.summary)
-                .listRowInsets(EdgeInsets(top: Spacing.sm, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-
-            if viewModel.summary.exceedsDayLimit {
-                WarningBanner(message: "That's over 10 hours of plans — consider trimming a stop.")
-                    .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-            }
-
-            ForEach(viewModel.stops) { stop in
-                StopRow(stop: stop)
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            viewModel.remove(stop)
-                        } label: {
-                            Label("Remove", systemImage: "trash")
+            Section {
+                ForEach(viewModel.stops) { stop in
+                    StopRow(stop: stop)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: Spacing.xs, leading: Spacing.screenEdge, bottom: Spacing.xs, trailing: Spacing.screenEdge))
+                        .swipeActions(edge: .trailing) {
+                            Button(role: .destructive) {
+                                viewModel.remove(stop)
+                            } label: {
+                                Label("Remove", systemImage: "trash")
+                            }
                         }
-                    }
-            }
-            .onMove { source, destination in
-                viewModel.move(from: source, to: destination)
+                }
+                .onMove { source, destination in
+                    viewModel.move(from: source, to: destination)
+                }
+            } header: {
+                summaryHeader
+                    .listRowInsets(EdgeInsets())
+                    .textCase(nil)
             }
         }
         .listStyle(.plain)
@@ -71,6 +65,20 @@ struct PlanView: View {
         .overlay(alignment: .bottom) {
             undoSnackbar
         }
+    }
+
+    private var summaryHeader: some View {
+        VStack(spacing: Spacing.md) {
+            PlanSummaryCard(summary: viewModel.summary)
+            if viewModel.summary.exceedsDayLimit {
+                WarningBanner(message: "That's over 10 hours of plans — consider trimming a stop.")
+            }
+        }
+        .padding(.horizontal, Spacing.screenEdge)
+        .padding(.top, Spacing.sm)
+        .padding(.bottom, Spacing.md)
+        .frame(maxWidth: .infinity)
+        .background(WanderlyColor.bg)
     }
 
     private var reviewButton: some View {
