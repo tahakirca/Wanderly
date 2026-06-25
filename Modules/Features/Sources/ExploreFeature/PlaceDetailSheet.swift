@@ -88,7 +88,7 @@ struct PlaceDetailSheet: View {
         HStack(spacing: Spacing.sm) {
             InfoTile(icon: "clock", value: DurationLabel.humanized(place.estimatedDurationMinutes), label: "Duration")
             InfoTile(icon: "location", value: "\(place.distanceKm.formatted(.number.precision(.fractionLength(1)))) km", label: "Distance")
-            InfoTile(icon: "dollarsign", value: place.priceLevel.symbol, label: "Price")
+            InfoTile(icon: "creditcard", value: place.priceLevel.symbol, label: "Price")
         }
     }
 

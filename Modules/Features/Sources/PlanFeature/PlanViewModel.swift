@@ -40,6 +40,8 @@ final class PlanViewModel: ObservableObject {
     }
 
     func move(from source: IndexSet, to destination: Int) {
+        // Reordering invalidates the pending undo, which points at the old position.
+        recentlyRemoved = nil
         planStore.move(from: source, to: destination)
         Haptics.selection()
     }
