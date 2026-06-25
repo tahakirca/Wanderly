@@ -98,6 +98,27 @@ struct TripSummaryView: View {
     }
 
     private var shareButton: some View {
-        PrimaryButton("Share Plan", icon: "square.and.arrow.up") {}
+        ShareLink(item: shareText) {
+            HStack(spacing: Spacing.sm) {
+                Image(systemName: "square.and.arrow.up")
+                Text("Share Plan")
+            }
+            .font(WanderlyFont.headline)
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .frame(height: 54)
+            .background(WanderlyColor.teal, in: RoundedRectangle(cornerRadius: Radius.button))
+            .shadow(.primaryButton)
+        }
+    }
+
+    private var shareText: String {
+        var lines = ["My Jaipur day plan", ""]
+        for stop in summary.stops {
+            lines.append("\(ClockTime.string(fromMinutes: stop.arrivalMinutes))  \(stop.place.name) · \(DurationLabel.humanized(stop.place.estimatedDurationMinutes))")
+        }
+        lines.append("")
+        lines.append("\(summary.stopCount) stops · \(DurationLabel.humanized(summary.totalDurationMinutes)) · about $\(summary.totalCostUSD) per person")
+        return lines.joined(separator: "\n")
     }
 }
