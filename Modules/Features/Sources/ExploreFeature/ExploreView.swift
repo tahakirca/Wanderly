@@ -24,6 +24,11 @@ struct ExploreView: View {
         .navigationTitle("Explore")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
+            if viewModel.planCount > 0 {
+                ToolbarItem(placement: .topBarLeading) {
+                    planCountBadge
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 ThemeToggleButton(theme: theme)
             }
@@ -40,6 +45,18 @@ struct ExploreView: View {
         }
         .task { await viewModel.load() }
         .task { await viewModel.observePlan() }
+    }
+
+    private var planCountBadge: some View {
+        HStack(spacing: Spacing.xs) {
+            Image(systemName: "checklist")
+            Text("\(viewModel.planCount) in plan")
+        }
+        .font(WanderlyFont.footnote)
+        .foregroundStyle(WanderlyColor.saffron)
+        .padding(.horizontal, Spacing.sm)
+        .padding(.vertical, Spacing.xs)
+        .background(WanderlyColor.saffronSoft, in: Capsule())
     }
 
     private var categoryChips: some View {

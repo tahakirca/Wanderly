@@ -20,7 +20,7 @@ final class AppContainer: ObservableObject {
         ExploreFactory.make(fetchPlaces: fetchPlaces, planStore: planStore)
     }
 
-    func makePlan() -> some View {
-        PlanFactory.make()
+    func makePlan(onBrowse: @escaping () -> Void) -> some View {
+        PlanFactory.make(planStore: planStore, onBrowse: onBrowse)
     }
 }

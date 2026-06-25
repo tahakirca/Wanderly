@@ -1,7 +1,9 @@
+import Domain
 import SwiftUI
 
 public enum PlanFactory {
-    public static func make() -> some View {
-        PlanView()
+    @MainActor
+    public static func make(planStore: PlanStore, onBrowse: @escaping () -> Void) -> some View {
+        PlanView(viewModel: PlanViewModel(planStore: planStore), onBrowse: onBrowse)
     }
 }

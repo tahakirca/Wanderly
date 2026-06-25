@@ -47,7 +47,7 @@ public struct Shadow: Sendable {
 }
 
 extension View {
-    func shadow(_ token: Shadow) -> some View {
+    public func shadow(_ token: Shadow) -> some View {
         shadow(color: token.color, radius: token.radius, x: token.offsetX, y: token.offsetY)
     }
 }

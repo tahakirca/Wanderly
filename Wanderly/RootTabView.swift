@@ -8,6 +8,12 @@ struct RootTabView: View {
     let container: AppContainer
     @EnvironmentObject private var theme: ThemeController
     @ObservedObject private var planStore: InMemoryPlanStore
+    @State private var selection = Tab.explore
+
+    private enum Tab {
+        case explore
+        case plan
+    }
 
     init(container: AppContainer) {
         self.container = container
@@ -15,21 +21,23 @@ struct RootTabView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             NavigationStack {
                 container.makeExplore()
             }
             .tabItem {
                 Label("Explore", systemImage: "map")
             }
+            .tag(Tab.explore)
 
             NavigationStack {
-                container.makePlan()
+                container.makePlan(onBrowse: { selection = .explore })
             }
             .tabItem {
                 Label("My Plan", systemImage: "list.bullet")
             }
             .badge(planCount)
+            .tag(Tab.plan)
         }
         .tint(WanderlyColor.teal)
         .preferredColorScheme(theme.colorScheme)
