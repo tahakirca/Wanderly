@@ -76,6 +76,8 @@ The prototype shows some custom interactions; I leaned on the platform instead a
 - Delete is `.swipeActions` + an undo snackbar; reordering is `List`'s own drag (via the Edit
   button) instead of a custom always-on drag handle.
 - Search is `.searchable`, so it collapses with the large title the way iOS users expect.
+- Filtering runs on every keystroke with no debounce — the 35 places are in memory and the filter
+  is trivial, so there's nothing to debounce. With a network-backed search I'd add one.
 
 These are more robust and far less code; the trade-off is they don't match the prototype's custom
 gestures one-for-one.
