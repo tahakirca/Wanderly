@@ -8,7 +8,7 @@ struct ExploreView: View {
     @State private var selectedPlace: Place?
 
     init(viewModel: ExploreViewModel) {
-        _viewModel = State(initialValue: viewModel)
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -48,7 +48,7 @@ struct ExploreView: View {
                 CategoryChip(title: "All", symbol: "square.grid.2x2", isSelected: viewModel.selectedCategory == nil) {
                     viewModel.selectedCategory = nil
                 }
-                ForEach(PlaceCategory.allCases, id: \.self) { category in
+                ForEach(PlaceCategory.allCases) { category in
                     CategoryChip(category: category, isSelected: viewModel.selectedCategory == category) {
                         viewModel.selectedCategory = category
                     }
@@ -62,7 +62,7 @@ struct ExploreView: View {
     private var cards: some View {
         if viewModel.isLoading {
             VStack(spacing: Spacing.lg) {
-                ForEach(0..<4, id: \.self) { _ in
+                ForEach(0..<4) { _ in
                     SkeletonCard()
                 }
             }

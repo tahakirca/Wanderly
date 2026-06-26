@@ -7,7 +7,7 @@ struct PlanView: View {
     private let onBrowse: () -> Void
 
     init(viewModel: PlanViewModel, onBrowse: @escaping () -> Void) {
-        _viewModel = State(initialValue: viewModel)
+        self.viewModel = viewModel
         self.onBrowse = onBrowse
     }
 
@@ -36,8 +36,8 @@ struct PlanView: View {
     private var plan: some View {
         List {
             Section {
-                ForEach(Array(viewModel.stops.enumerated()), id: \.element.id) { index, stop in
-                    StopRow(stop: stop, isFirst: index == 0, isLast: index == viewModel.stops.count - 1)
+                ForEach(viewModel.stops) { stop in
+                    StopRow(stop: stop, isFirst: stop.order == 1, isLast: stop.order == viewModel.stops.count)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets(

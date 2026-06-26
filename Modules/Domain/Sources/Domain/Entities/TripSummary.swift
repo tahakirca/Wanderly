@@ -20,9 +20,11 @@ public struct ScheduledStop: Identifiable, Equatable, Sendable {
     }
 }
 
-public struct CategoryCount: Equatable, Sendable {
+public struct CategoryCount: Identifiable, Equatable, Sendable {
     public let category: PlaceCategory
     public let count: Int
+
+    public var id: PlaceCategory { category }
 
     public init(category: PlaceCategory, count: Int) {
         self.category = category

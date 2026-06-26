@@ -43,7 +43,7 @@ struct TripSummaryView: View {
     private var breakdown: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: Spacing.sm) {
-                ForEach(summary.categoryBreakdown, id: \.category) { entry in
+                ForEach(summary.categoryBreakdown) { entry in
                     Text("\(entry.count) \(entry.category.title)")
                         .font(WanderlyFont.footnote)
                         .foregroundStyle(WanderlyColor.ink2)
