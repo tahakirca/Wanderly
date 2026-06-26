@@ -40,7 +40,9 @@ struct PlanView: View {
                     StopRow(stop: stop, isFirst: index == 0, isLast: index == viewModel.stops.count - 1)
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets(top: 0, leading: Spacing.screenEdge, bottom: 0, trailing: Spacing.screenEdge))
+                        .listRowInsets(EdgeInsets(
+                            top: 0, leading: Spacing.screenEdge, bottom: 0, trailing: Spacing.screenEdge
+                        ))
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
                                 viewModel.remove(stop)

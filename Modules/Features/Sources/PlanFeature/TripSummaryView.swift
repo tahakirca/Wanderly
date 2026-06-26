@@ -24,7 +24,7 @@ struct TripSummaryView: View {
 
     private var hero: some View {
         VStack(spacing: Spacing.lg) {
-            Text("\(ClockTime.string(fromMinutes: summary.startMinutes)) → \(ClockTime.string(fromMinutes: summary.endMinutes))")
+            Text(dayRange)
                 .font(WanderlyFont.sheetTitle)
                 .foregroundStyle(.white)
 
@@ -83,7 +83,7 @@ struct TripSummaryView: View {
                         Text(stop.place.name)
                             .font(WanderlyFont.callout)
                             .foregroundStyle(WanderlyColor.ink)
-                        Text("\(stop.place.category.title) · \(DurationLabel.humanized(stop.place.estimatedDurationMinutes))")
+                        Text(detail(for: stop))
                             .font(WanderlyFont.footnote)
                             .foregroundStyle(WanderlyColor.ink2)
                     }
@@ -112,13 +112,26 @@ struct TripSummaryView: View {
         }
     }
 
+    private var dayRange: String {
+        let start = ClockTime.string(fromMinutes: summary.startMinutes)
+        let end = ClockTime.string(fromMinutes: summary.endMinutes)
+        return "\(start) → \(end)"
+    }
+
+    private func detail(for stop: ScheduledStop) -> String {
+        "\(stop.place.category.title) · \(DurationLabel.humanized(stop.place.estimatedDurationMinutes))"
+    }
+
     private var shareText: String {
         var lines = ["My Jaipur day plan", ""]
         for stop in summary.stops {
-            lines.append("\(ClockTime.string(fromMinutes: stop.arrivalMinutes))  \(stop.place.name) · \(DurationLabel.humanized(stop.place.estimatedDurationMinutes))")
+            let time = ClockTime.string(fromMinutes: stop.arrivalMinutes)
+            let visit = DurationLabel.humanized(stop.place.estimatedDurationMinutes)
+            lines.append("\(time)  \(stop.place.name) · \(visit)")
         }
         lines.append("")
-        lines.append("\(summary.stopCount) stops · \(DurationLabel.humanized(summary.totalDurationMinutes)) · about $\(summary.totalCostUSD) per person")
+        let total = DurationLabel.humanized(summary.totalDurationMinutes)
+        lines.append("\(summary.stopCount) stops · \(total) · about $\(summary.totalCostUSD) per person")
         return lines.joined(separator: "\n")
     }
 }
