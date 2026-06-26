@@ -19,13 +19,12 @@ public enum TripSummaryCalculator {
             previous = place
         }
 
-        let endMinutes = stops.isEmpty ? plan.startMinutes : clock
         let totalCost = plan.places.reduce(0) { $0 + $1.priceLevel.estimatedCostUSD }
 
         return TripSummary(
             stops: stops,
             startMinutes: plan.startMinutes,
-            endMinutes: endMinutes,
+            endMinutes: clock,
             totalCostUSD: totalCost,
             categoryBreakdown: breakdown(of: plan.places)
         )
