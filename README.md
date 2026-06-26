@@ -3,9 +3,6 @@
 A small trip day-planner for a single day in Jaipur. You browse points of interest, add the
 ones you like to a plan, reorder them into a realistic timeline, and review the finished day.
 
-The brief was written for React Native; I built it natively in SwiftUI, as agreed, since the
-role is native iOS and that's where I can show the most craft.
-
 The visual design was prepared with Claude Design and recreated natively in SwiftUI.
 
 | Explore | Place detail | My Plan | Trip Summary |
