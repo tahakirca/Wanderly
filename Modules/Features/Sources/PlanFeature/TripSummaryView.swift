@@ -29,29 +29,15 @@ struct TripSummaryView: View {
                 .foregroundStyle(.white)
 
             HStack(spacing: Spacing.sm) {
-                heroTile(value: "\(summary.stopCount)", label: "Stops")
-                heroTile(value: DurationLabel.humanized(summary.totalDurationMinutes), label: "Total time")
-                heroTile(value: "$\(summary.totalCostUSD)", label: "Per person")
+                StatTile(value: "\(summary.stopCount)", label: "Stops", emphasis: .onColor)
+                StatTile(value: totalTime, label: "Total time", emphasis: .onColor)
+                StatTile(value: "$\(summary.totalCostUSD)", label: "Per person", emphasis: .onColor)
             }
         }
         .padding(Spacing.xl)
         .frame(maxWidth: .infinity)
         .background(WanderlyColor.rose, in: RoundedRectangle(cornerRadius: Radius.card))
         .shadow(.roseHero)
-    }
-
-    private func heroTile(value: String, label: String) -> some View {
-        VStack(spacing: Spacing.xs) {
-            Text(value)
-                .font(WanderlyFont.headline)
-                .foregroundStyle(.white)
-            Text(label.uppercased())
-                .font(WanderlyFont.caption)
-                .foregroundStyle(.white.opacity(0.8))
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, Spacing.md)
-        .background(.white.opacity(0.15), in: RoundedRectangle(cornerRadius: Radius.tile))
     }
 
     private var breakdown: some View {
@@ -110,6 +96,10 @@ struct TripSummaryView: View {
             .background(WanderlyColor.teal, in: RoundedRectangle(cornerRadius: Radius.button))
             .shadow(.primaryButton)
         }
+    }
+
+    private var totalTime: String {
+        DurationLabel.humanized(summary.totalDurationMinutes)
     }
 
     private var dayRange: String {
