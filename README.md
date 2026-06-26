@@ -55,6 +55,11 @@ I didn't want to pull in a state-management framework I'd have to justify.
 
 - **SwiftUI** throughout, iOS 17 minimum — lets me use `NavigationStack`, `.searchable`, and
   sheet detents without home-grown equivalents.
+- **Swift 6 language mode with complete strict concurrency**, across both the app target and all
+  four packages. The view models, the theme controller and the plan store are `@MainActor`, the
+  domain models are `Sendable`, and the build is clean under the compiler's full data-race checks.
+- The view models and shared state use the **Observation** framework (`@Observable`) rather than
+  `ObservableObject`/`@Published`, since we target iOS 17.
 - **Kingfisher** for the remote placeholder images — the Explore list scrolls through 35 of them,
   and its caching/downsampling keeps that smooth.
 - **SwiftLint** runs as a build-tool plugin in every module.
@@ -73,17 +78,12 @@ The prototype shows some custom interactions; I leaned on the platform instead a
 These are more robust and far less code; the trade-off is they don't match the prototype's custom
 gestures one-for-one.
 
-## Known issues / things I'd do next
+## In-memory usage
 
-- **Accessibility** is light: the icon-only buttons need labels, and the type is fixed-size, so
-  there's no Dynamic Type support yet. That's the first thing I'd fix.
-- The plan count on the tab uses the system badge (red), not the saffron one in the design —
-  styling the native tab badge isn't really possible without replacing the tab bar.
-- The plan is in memory only (the brief allows this), so it resets on relaunch. Persisting the
-  selected place IDs to `UserDefaults` would be a small, obvious next step.
-- The app target still compiles in Swift 5 language mode while the packages are on Swift 6.
-- With more time I'd add the richer drag visuals (lifted card + placeholder), a staggered summary
-  animation, an editable start time, and sort/tag filtering on Explore.
+The brief states that in-memory state is fine, so the plan is intentionally kept in memory only
+and isn't persisted across launches — a deliberate choice rather than a gap. If persistence were
+needed, saving the selected place IDs (and their order) to `UserDefaults` and rehydrating on
+launch would be the obvious next step.
 
 ## Tests
 
