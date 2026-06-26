@@ -125,20 +125,7 @@ struct PlaceDetailSheet: View {
     @ViewBuilder
     private var planButton: some View {
         if added {
-            Button {
-                toggle()
-            } label: {
-                Label("Remove from Plan", systemImage: "minus.circle.fill")
-                    .font(WanderlyFont.headline)
-                    .foregroundStyle(WanderlyColor.rose)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 54)
-                    .background(WanderlyColor.roseSoft, in: RoundedRectangle(cornerRadius: Radius.button))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: Radius.button)
-                            .strokeBorder(WanderlyColor.rose, lineWidth: 1)
-                    )
-            }
+            SecondaryButton("Remove from Plan", icon: "minus.circle.fill", action: toggle)
         } else {
             PrimaryButton("Add to Plan", icon: "plus", action: toggle)
         }

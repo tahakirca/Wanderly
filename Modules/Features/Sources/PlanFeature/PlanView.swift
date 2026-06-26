@@ -90,12 +90,7 @@ struct PlanView: View {
                 Text("Review trip")
                 Image(systemName: "arrow.right")
             }
-            .font(WanderlyFont.headline)
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity)
-            .frame(height: 54)
-            .background(WanderlyColor.teal, in: RoundedRectangle(cornerRadius: Radius.button))
-            .shadow(.primaryButton)
+            .primaryCTAStyle()
         }
         .padding(.horizontal, Spacing.screenEdge)
         .padding(.bottom, Spacing.sm)

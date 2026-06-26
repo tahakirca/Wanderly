@@ -89,12 +89,7 @@ struct TripSummaryView: View {
                 Image(systemName: "square.and.arrow.up")
                 Text("Share Plan")
             }
-            .font(WanderlyFont.headline)
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity)
-            .frame(height: 54)
-            .background(WanderlyColor.teal, in: RoundedRectangle(cornerRadius: Radius.button))
-            .shadow(.primaryButton)
+            .primaryCTAStyle()
         }
     }
 
