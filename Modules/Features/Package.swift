@@ -29,5 +29,10 @@ let package = Package(
             dependencies: ["ExploreFeature", "Domain"],
             plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
         ),
+        .testTarget(
+            name: "PlanFeatureTests",
+            dependencies: ["PlanFeature", "Domain"],
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
+        ),
     ]
 )
