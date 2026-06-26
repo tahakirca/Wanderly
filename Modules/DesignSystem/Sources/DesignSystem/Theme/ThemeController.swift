@@ -23,8 +23,4 @@ public final class ThemeController {
         case .dark: .dark
         }
     }
-
-    public func toggle() {
-        mode = (mode == .dark) ? .light : .dark
-    }
 }
