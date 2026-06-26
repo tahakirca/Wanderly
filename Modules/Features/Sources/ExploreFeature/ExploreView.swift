@@ -3,12 +3,12 @@ import Domain
 import SwiftUI
 
 struct ExploreView: View {
-    @StateObject private var viewModel: ExploreViewModel
-    @EnvironmentObject private var theme: ThemeController
+    @State private var viewModel: ExploreViewModel
+    @Environment(ThemeController.self) private var theme
     @State private var selectedPlace: Place?
 
     init(viewModel: ExploreViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = State(initialValue: viewModel)
     }
 
     var body: some View {

@@ -5,8 +5,9 @@ import ExploreFeature
 import PlanFeature
 import SwiftUI
 
+@Observable
 @MainActor
-final class AppContainer: ObservableObject {
+final class AppContainer {
     let theme = ThemeController()
     let planStore = InMemoryPlanStore()
 

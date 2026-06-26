@@ -2,11 +2,12 @@ import Domain
 import Foundation
 import SwiftUI
 
+@Observable
 @MainActor
-public final class InMemoryPlanStore: ObservableObject, PlanStore {
-    @Published public private(set) var plan: TripPlan
+public final class InMemoryPlanStore: PlanStore {
+    public private(set) var plan: TripPlan
 
-    private var continuations: [UUID: AsyncStream<TripPlan>.Continuation] = [:]
+    @ObservationIgnored private var continuations: [UUID: AsyncStream<TripPlan>.Continuation] = [:]
 
     public init(plan: TripPlan = TripPlan()) {
         self.plan = plan

@@ -3,11 +3,11 @@ import Domain
 import SwiftUI
 
 struct PlanView: View {
-    @StateObject private var viewModel: PlanViewModel
+    @State private var viewModel: PlanViewModel
     private let onBrowse: () -> Void
 
     init(viewModel: PlanViewModel, onBrowse: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+        _viewModel = State(initialValue: viewModel)
         self.onBrowse = onBrowse
     }
 

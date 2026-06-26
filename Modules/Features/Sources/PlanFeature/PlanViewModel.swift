@@ -2,18 +2,19 @@ import DesignSystem
 import Domain
 import SwiftUI
 
+@Observable
 @MainActor
-final class PlanViewModel: ObservableObject {
+final class PlanViewModel {
     struct RemovedStop: Identifiable {
         let id = UUID()
         let place: Place
         let index: Int
     }
 
-    @Published private(set) var summary = TripSummaryCalculator.summary(for: TripPlan())
-    @Published var recentlyRemoved: RemovedStop?
+    private(set) var summary = TripSummaryCalculator.summary(for: TripPlan())
+    var recentlyRemoved: RemovedStop?
 
-    private let planStore: PlanStore
+    @ObservationIgnored private let planStore: PlanStore
 
     init(planStore: PlanStore) {
         self.planStore = planStore

@@ -1,14 +1,16 @@
 import SwiftUI
 
 /// Drives the app's color scheme. Bind `colorScheme` to `.preferredColorScheme`.
-public final class ThemeController: ObservableObject {
+@Observable
+@MainActor
+public final class ThemeController {
     public enum Mode: String, CaseIterable, Sendable {
         case system
         case light
         case dark
     }
 
-    @Published public var mode: Mode
+    public var mode: Mode
 
     public init(mode: Mode = .system) {
         self.mode = mode

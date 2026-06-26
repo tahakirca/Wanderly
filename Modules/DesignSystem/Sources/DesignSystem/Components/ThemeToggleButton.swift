@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Circular light/dark toggle for the Explore header.
 public struct ThemeToggleButton: View {
-    @ObservedObject private var theme: ThemeController
+    private let theme: ThemeController
 
     public init(theme: ThemeController) {
         self.theme = theme

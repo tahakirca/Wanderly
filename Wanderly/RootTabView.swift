@@ -6,8 +6,7 @@ import SwiftUI
 
 struct RootTabView: View {
     let container: AppContainer
-    @EnvironmentObject private var theme: ThemeController
-    @ObservedObject private var planStore: InMemoryPlanStore
+    @Environment(ThemeController.self) private var theme
     @State private var selection = Tab.explore
 
     private enum Tab {
@@ -17,7 +16,10 @@ struct RootTabView: View {
 
     init(container: AppContainer) {
         self.container = container
-        _planStore = ObservedObject(wrappedValue: container.planStore)
+    }
+
+    private var planStore: InMemoryPlanStore {
+        container.planStore
     }
 
     var body: some View {

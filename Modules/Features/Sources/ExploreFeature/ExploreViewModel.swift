@@ -1,17 +1,18 @@
 import Domain
 import SwiftUI
 
+@Observable
 @MainActor
-final class ExploreViewModel: ObservableObject {
-    @Published private(set) var places: [Place] = []
-    @Published private(set) var isLoading = true
-    @Published var searchText = ""
-    @Published var selectedCategory: PlaceCategory?
-    @Published private(set) var planIDs: Set<String> = []
+final class ExploreViewModel {
+    private(set) var places: [Place] = []
+    private(set) var isLoading = true
+    var searchText = ""
+    var selectedCategory: PlaceCategory?
+    private(set) var planIDs: Set<String> = []
 
-    private let fetchPlaces: FetchPlacesUseCase
-    private let planStore: PlanStore
-    private var hasLoaded = false
+    @ObservationIgnored private let fetchPlaces: FetchPlacesUseCase
+    @ObservationIgnored private let planStore: PlanStore
+    @ObservationIgnored private var hasLoaded = false
 
     init(fetchPlaces: FetchPlacesUseCase, planStore: PlanStore) {
         self.fetchPlaces = fetchPlaces
