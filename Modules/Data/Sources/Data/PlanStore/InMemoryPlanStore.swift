@@ -24,8 +24,14 @@ public final class InMemoryPlanStore: PlanStore {
         }
     }
 
-    public func contains(_ place: Place) -> Bool {
+    func contains(_ place: Place) -> Bool {
         plan.contains(place)
+    }
+
+    func add(_ place: Place) {
+        guard !contains(place) else { return }
+        plan.places.append(place)
+        broadcast()
     }
 
     public func toggle(_ place: Place) {
@@ -34,12 +40,6 @@ public final class InMemoryPlanStore: PlanStore {
         } else {
             add(place)
         }
-    }
-
-    public func add(_ place: Place) {
-        guard !contains(place) else { return }
-        plan.places.append(place)
-        broadcast()
     }
 
     public func remove(_ place: Place) {
@@ -55,11 +55,6 @@ public final class InMemoryPlanStore: PlanStore {
 
     public func move(from source: IndexSet, to destination: Int) {
         plan.places.move(fromOffsets: source, toOffset: destination)
-        broadcast()
-    }
-
-    public func setStartTime(minutes: Int) {
-        plan.startMinutes = minutes
         broadcast()
     }
 

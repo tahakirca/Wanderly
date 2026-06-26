@@ -69,11 +69,8 @@ private final class StubPlanStore: PlanStore {
         AsyncStream { $0.finish() }
     }
 
-    func contains(_ place: Place) -> Bool { plan.contains(place) }
     func toggle(_ place: Place) {}
-    func add(_ place: Place) {}
     func remove(_ place: Place) {}
     func insert(_ place: Place, at index: Int) {}
     func move(from source: IndexSet, to destination: Int) {}
-    func setStartTime(minutes: Int) {}
 }
