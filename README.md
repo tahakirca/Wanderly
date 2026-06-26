@@ -6,6 +6,8 @@ ones you like to a plan, reorder them into a realistic timeline, and review the 
 The brief was written for React Native; I built it natively in SwiftUI, as agreed, since the
 role is native iOS and that's where I can show the most craft.
 
+The visual design was prepared with Claude Design and recreated natively in SwiftUI.
+
 | Explore | Place detail | My Plan | Trip Summary |
 |---|---|---|---|
 | <img src="Screenshots/explore.png" width="200"> | <img src="Screenshots/place-detail.png" width="200"> | <img src="Screenshots/my-plan.png" width="200"> | <img src="Screenshots/trip-summary.png" width="200"> |
